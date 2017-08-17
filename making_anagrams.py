@@ -1,25 +1,23 @@
-def number_needed(a, b):
-	counter = 0
-	print(len(a))
-	print(a.count("a"))
-	print(b.count("a"))
-	print(b.find("z"))
+def number_needed(first, second):
+	a = [0] * 26
+	b = [0] * 26
+	answer = 0
 
-	for c in a:
-		if b.find("c") != -1:
-			counter++
-			b.remove("c")
-		else:
-			pass
+	for i in range(len(first)):
+		num = ord(first[i]) - 97			# 'num' stores the number that corresponds to the letter
+		counter = a[num]
+		counter += 1
+		a[num] = counter					# Update the array to reflect how many each letter does the string has
 
-def test_program():
-	a = "asdlkf"
-	if a.find("z") != -1:
-		return 
+	# Do the same for the second string
+	for i in range(len(second)):
+		num = ord(second[i]) - 97			
+		counter = b[num]
+		counter += 1
+		b[num] = counter
 
-a = 'cde'
-b = 'abc'
+	for i in range(0,26):
+		answer += abs(a[i] - b[i])
+	return answer
 
-# print(number_needed(a, b))
-
-print(test_program())
+print(number_needed("skdjhflksdfjhasddkfjhy", "skdjfbkasjdhfkjandfadz"))
