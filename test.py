@@ -10,7 +10,9 @@ b = np.full(26, 0)
 a1 = ord('a') - 96
 print(a1)
 
-for i in count(first):
+for i in range(len(first)):
+	num = ord('i') - 97
+	print(num)
 	print(first[i])
 
 # print(number_needed(first, second))
