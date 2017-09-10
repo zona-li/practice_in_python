@@ -29,10 +29,10 @@ class Node:
         self.left = None
         self.right = None
 
-def checkBST(Node root):
+def checkBST():
 	a = inOrderTraversal(root)
 	first = a[0]
-	for i in xrange(1, len(a)):
+	for i in range(1, len(a)):
 		if first >= a[i]:
 			return "No"
 		else:
@@ -41,10 +41,11 @@ def checkBST(Node root):
 
 
 # Inorder traversal
-def inOrderTraversal(Node root):
-	if (root.left != null):
+def inOrderTraversal(root):
+	if (root.left != None):
 		inOrderTraversal(root.left)
 	arr.append(root.data)
-	if (root.right != null):
+	if (root.right != None):
 		inOrderTraversal(root.right)
 	return arr
+
