@@ -15,6 +15,7 @@ class SingleLinkedList(object):
 		self.end = None
 
 	def push(self, obj):
+		""" Insert the node at the end of the list. """
 
 
 	def pop(self):
