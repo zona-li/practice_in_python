@@ -4,20 +4,8 @@ class SingleLinkedListNode():
 		self.value = value
 		self.nxt = None
 
-	def getVal(self):
-		return self.value
-
-	def getNxt(self):
-		return self.nxt
-
-	def setVal(self, newVal):
-		self.value = newVal
-
-	def setNxt(self, newNxt):
-		self.nxt = newNxt
-
 	def __repr__(self):
-		nval = self.next and self.next.value or None
+		nval = self.nxt and self.nxt.value or None
 		return f"[{self.value}:{repr(nval)}]"
 
 class SingleLinkedList():
@@ -36,9 +24,24 @@ class SingleLinkedList():
 			self.head = node
 		else:
 			self.end.nxt = node
+		self.end = node
 
 	def pop(self):
 		""" Delete and return the node at the end of the list. """
+		cursor = self.head
+		if self.isEmpty():
+			raise IndexError("list is empty.")
+		elif self.head == self.end:
+			result = cursor.value
+			self.head = None
+			self.end = None
+		else:
+			for i in range(self.count - 2):
+				cursor = cursor.nxt
+			result = self.end.value
+			self.end = cursor
+			self.end.nxt = None
+		return result
 
 	def unshift(self):
 		""" Removes the first item and returns it. """
@@ -65,5 +68,5 @@ class SingleLinkedList():
 
 
 
-temp = SingleLinkedListNode(98, None)
-print(temp.getNxt())
+temp = SingleLinkedListNode(98)
+print(temp)
