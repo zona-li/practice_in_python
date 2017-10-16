@@ -1,4 +1,4 @@
-class SingleLinkedListNode(object):
+class SingleLinkedListNode():
 
 	def __init__(self, value, nxt):
 		self.value = value
@@ -8,7 +8,7 @@ class SingleLinkedListNode(object):
 		nval = self.next and self.next.value or None
 		return f"[{self.value}:{repr(nval)}]"
 
-class SingleLinkedList(object):
+class SingleLinkedList():
 
 	def __init__(self):
 		self.head = None
@@ -37,12 +37,14 @@ class SingleLinkedList(object):
 			result = cursor.value
 			self.head = None
 			self.end = None
+			self.count = 0
 		else:
-			for i in range(self.count() - 2):
+			for i in range(self.count - 2):
 				cursor = cursor.next
 			result = self.end.value
 			self.end = cursor
 			self.end.next = None
+			self.count -= 1
 		return result
 
 	def unshift(self):
