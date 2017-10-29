@@ -56,7 +56,7 @@ class Battery():
 		print(message)
 
 
-
+# Use a class
 my_tesla = ElectricCar('Tesla', 'Model X', 2017)
 print(my_tesla.get_descriptive_name())
 my_tesla.fill_gas()
