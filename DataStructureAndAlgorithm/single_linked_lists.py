@@ -1,51 +1,42 @@
-class SingleLinkedListNode():
+class SingleLinkedListNode(object):
 
 	def __init__(self, value, nxt):
 		self.value = value
 		self.next = nxt
 
 	def __repr__(self):
-		nval = self.next and self.next.value or None
-		return f"[{self.value}:{repr(nval)}]"
+		return f"{self.value}"
 
-class SingleLinkedList():
+class SingleLinkedList(object):
 
 	def __init__(self):
-		self.head = None
+		self.begin = None
 		self.end = None
-		self.count = 0
-
-	def isEmpty(self):
-		return self.head == None
 
 	def push(self, obj):
 		"""Appends a new value on the end of the list."""
 		node = SingleLinkedListNode(obj, None)
-		if self.head == None:
-			self.head = node
+		if self.begin == None:
+			self.begin = node
+			self.end = self.begin
 		else:
 			self.end.next = node
-		self.end = node
-		self.count += 1
+			self.end = node
 
 	def pop(self):
 		""" Delete and return the node at the end of the list. """
-		cursor = self.head
-		if self.isEmpty():
-			raise IndexError("list is empty.")
-		elif self.head == self.end:
-			result = cursor.value
-			self.head = None
-			self.end = None
-			self.count = 0
+		if self.end == None:
+			return None
+		elif self.begin == self.end:
+			node = self.begin
+			self.end = self.begin = None
+			return node.value
 		else:
-			for i in range(self.count - 2):
-				cursor = cursor.next
-			result = self.end.value
-			self.end = cursor
-			self.end.next = None
-			self.count -= 1
-		return result
+			node = self.begin
+			while node.next != self.end:
+				node = node.next
+			self.end = node
+			return node.next.value
 
 	def unshift(self):
 		""" Removes the first item and returns it. """
@@ -69,30 +60,15 @@ class SingleLinkedList():
 
 	def count(self):
 		"""Counts the number of elements in the list."""
+		node = self.begin
+		count = 0
+		while node:
+			count += 1
+			node = node.next
+		return count
 
 	def get(self, index):
 		"""Counts the number of elements in the list."""
 
 	def dump(self, mark):
 		"""Debugging function that dumps the contents of the list."""
-
-
-""" TESTING CODE """
-def test_push():
-    colors = SingleLinkedList()
-    colors.push("Pthalo Blue")
-    assert colors.count == 1
-    colors.push("Ultramarine Blue")
-    assert colors.count == 2
-
-def test_pop():
-    colors = SingleLinkedList()
-    colors.push("Magenta")
-    colors.push("Alizarin")
-    assert colors.pop() == "Alizarin"
-    assert colors.pop() == "Magenta"
-    assert colors.pop() == None
-
-
-test_push()
-test_pop()
