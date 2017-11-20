@@ -40,14 +40,14 @@ class SingleLinkedList(object):
 
 	def unshift(self):
 		""" Removes the first item and returns it. """
-		if self.isEmpty():
-			raise IndexError("list is empty.")
+		if self.begin == None:
+			return None
 		else:
-			result = self.head.value
-			self.head = self.head.next
-			if self.head.next == None:
+			node = self.begin
+			self.begin = node.next
+			if node.next == None:
 				self.end = None
-		return result
+			return node.value
 
 	def remove(self, obj):
 		"""Finds a matching item and removes it from the list."""
