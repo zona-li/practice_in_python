@@ -5,13 +5,23 @@ def ransom_note(magazine, ransom):
 		hash_num = hash_func(w)
 		table[hash_num].append(w)
 	# For each word in ransom note, check if magazine table has that word
-	for r in random:
-		
+	for r in ransom:
+		num = hash_func(r)
+		for word in table[num]:
+			flag = True
+			if word == r:
+				# Find the same word in magazine, delete the word
+				table[num].remove(word)
+				flag = False
+			if flag:
+				return False
+	return True
+
 
 def hash_func(x):
 	num = 0
 	for c in list(x):
-		num += int(x)
+		num += ord(c)
 	return num % 30
 
 m, n = map(int, input().strip().split(' '))
