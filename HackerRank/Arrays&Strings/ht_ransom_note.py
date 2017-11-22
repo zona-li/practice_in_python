@@ -7,6 +7,8 @@ def ransom_note(magazine, ransom):
 	# For each word in ransom note, check if magazine table has that word
 	for r in ransom:
 		num = hash_func(r)
+		if not table[num]:
+			return False
 		for word in table[num]:
 			flag = True
 			if word == r:
