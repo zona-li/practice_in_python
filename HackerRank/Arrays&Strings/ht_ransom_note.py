@@ -1,5 +1,5 @@
 def ransom_note(magazine, ransom):
-	rc = {} # dict of word: count of that word in the note
+	rc = {} # dictionary of [word: count]
     for word in ransom:
         if word not in rc:
             rc[word] = 0
