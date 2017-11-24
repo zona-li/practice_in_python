@@ -11,4 +11,11 @@ A Node is defined as:
 
 
 def has_cycle(head):
-    pass
+	if head is None:
+        return 0
+    head.data = "visited"
+    while head.next != None:
+        if head.next.data == "visited":
+            return 1
+        head.next.data = "visited"
+    return 0
