@@ -1,5 +1,5 @@
 def ransom_note(magazine, ransom):
-	rc = {} # dictionary of [word: count]
+    rc = {} # dictionary of [word: count]
     for word in ransom:
         if word not in rc:
             rc[word] = 0
@@ -21,6 +21,6 @@ ransom = input().strip().split(' ')
 answer = ransom_note(magazine, ransom)
 
 if (answer):
-	print("Yes")
+    print("Yes")
 else:
-	print("No")
+    print("No")
