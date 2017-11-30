@@ -1,24 +1,19 @@
 def is_matched(expression):
 	stack = []
-	for c in expression:
-		stack.append(c)
-	size = len(stack)
-	if size % 2 != 0:
+	if len(expression) % 2 != 0:
 		return False
-	first_half = []
-	second_half = []
-	half_size = int(size/2)
-	for c in range(0, half_size):
-		first_half.append(stack[c])
-	for c in range(half_size, size):
-		c = stack.pop()
-		if c == ")":
-			second_half.append("(")
-		if c == "]":
-			second_half.append("[")
-		if c == "}":
-			second_half.append("{")
-	return first_half == second_half
+	for c in expression:
+		if not stack:	# stack is empty
+			stack.append(c)
+		else:
+			end_char = stack.pop()
+			if ord(c)-1 == ord(end_char) or ord(c)-2 == ord(end_char):
+				pass
+			else:
+				stack.append(end_char)
+				stack.append(c)
+	return not stack
+
 
 t = int(input().strip())
 for a0 in range(t):
