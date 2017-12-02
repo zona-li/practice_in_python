@@ -23,21 +23,12 @@ class Node:
 
 arr = []
 
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.left = None
-        self.right = None
-
-def checkBST():
-	a = inOrderTraversal(root)
-	first = a[0]
-	for i in range(1, len(a)):
-		if first >= a[i]:
-			return "No"
-		else:
-			first = a[i]
-	return "Yes"
+def checkBST(root):
+	treeArr = inOrderTraversal(root)
+	for i in range(0, len(treeArr)-1):
+		if treeArr[i] >= treeArr[i+1]:
+			return False
+	return True
 
 
 # Inorder traversal
@@ -48,4 +39,3 @@ def inOrderTraversal(root):
 	if (root.right != None):
 		inOrderTraversal(root.right)
 	return arr
-
