@@ -25,7 +25,7 @@ def merge(arr, start, mid, end, copy):
 	k = start
 	count = 0
 
-	while i <= mid-1 and j <= end:
+	while i < mid and j <= end:
 		if arr[j] < arr[i]:
 			copy[k] = arr[j]
 			j += 1
