@@ -6,13 +6,16 @@ def countInversions(arr):
 	return count_inversions(arr, 0, len(arr)-1, copy)
 
 def count_inversions(arr, start, end, copy):
-	mid = 0
 	count = 0
 	if end > start:
-		mid = (start + end) / 2
-		count = count_inversions(arr, start, mid, copy)
-		count += count_inversions(arr, mid+1, end, copy)
-		count += merge(arr, start, mid, end, copy)
+		mid = int((start + end) / 2)
+		first_half = arr[:mid]
+		second_half = arr[mid:]
+		first_half_copy = list(first_half)
+		second_half_copy = list(second_half)
+		count = count_inversions(first_half, start, mid, first_half_copy)
+		count += count_inversions(second_half, mid+1, end, second_half_copy)
+		count += merge(arr, start, mid+1, end, copy)
 
 	return count
 
