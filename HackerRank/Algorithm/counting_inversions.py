@@ -6,50 +6,39 @@ def countInversions(arr):
 	return count_inversions(arr, 0, len(arr)-1, copy)
 
 def count_inversions(arr, start, end, copy):
+	if start >= end:
+		return 0
+
+	mid = int((start + (end - start)) / 2)
 	count = 0
-	if end > start:
-		mid = int((start + end) / 2)
-		first_half = arr[:mid]
-		second_half = arr[mid:]
-		first_half_copy = list(first_half)
-		second_half_copy = list(second_half)
-		count = count_inversions(first_half, start, mid, first_half_copy)
-		count += count_inversions(second_half, mid+1, end, second_half_copy)
-		count += merge(arr, start, mid+1, end, copy)
+	count += count_inversions(copy, start, mid, arr)
+	count += count_inversions(copy, mid+1, end, arr)
+	count += merge(arr, start, mid, end, copy)
 
 	return count
 
 def merge(arr, start, mid, end, copy):
 	i = start
-	j = mid
+	j = mid+1
 	k = start
 	count = 0
 
-	while i < mid and j <= end:
-		if arr[j] < arr[i]:
-			copy[k] = arr[j]
+	while i <= mid or j <= end:
+		if i > mid:
+			arr[k] = copy[j]
 			j += 1
 			k += 1
-			count = count + mid - i
-		else:
-			copy[k] = arr[i]
+		elif j > end:
+			arr[k] = copy[i]
 			k += 1
 			i += 1
-
-	# Copy over the remaining elements. 
-	# Only one of these two while loops will get executed. 
-	while i <= mid-1:
-		copy[k] = arr[i]
-		k += 1
-		i += 1
-
-	while j <= end:
-		copy[k] = arr[j]
-		k += 1
-		j += 1
-
-	for i in range(start,end+1):
-		arr[i] = copy[i]
+		elif copy[i] <= copy[j]:
+			arr[k] = copy[i]
+			k += 1
+			i += 1
+		else:
+			arr[k] = copy[j]
+			count += mid + 1 - i
 
 	return count
 
