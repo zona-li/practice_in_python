@@ -5,8 +5,8 @@ def count_region(matrix, i, j):
 	if matrix[i][j] == 0:
 		return 0
 
-	val = matrix[i][j]
-	matrix[i][j] = matrix[i][j] - 1
+	val = 1
+	matrix[i][j] = 0
 
 	val += count_region(matrix, i+1, j)
 	val += count_region(matrix, i-1, j)
