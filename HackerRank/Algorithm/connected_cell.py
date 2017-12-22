@@ -1,21 +1,31 @@
-class Cell(object):
-	"""docstring for Cell"""
-	def __init__(self, m, n):
-		self.arg = arg
-		
+def count_region(matrix, i, j):
+	if i < 0 or j < 0 or i >= n or j >= m:
+		return 0
 
-def addAdjancent(m, n):
-	pass
+	if matrix[i][j] == 0:
+		return 0
 
-def getBiggestRegion(grid, m, n):
+	val = matrix[i][j]
+	matrix[i][j] = matrix[i][j] - 1
+
+	val += count_region(matrix, i+1, j)
+	val += count_region(matrix, i-1, j)
+	val += count_region(matrix, i, j+1)
+	val += count_region(matrix, i, j-1)
+	val += count_region(matrix, i+1, j+1)
+	val += count_region(matrix, i+1, j-1)
+	val += count_region(matrix, i-1, j+1)
+	val += count_region(matrix, i-1, j-1)
+
+	return val
+
+def getBiggestRegion(grid):
+	count = 0
 	for i in range(n):
 		for j in range(m):
-			if grid[i][j] == 1:
-				pass
-			else:
-				pass
-
-	# return(grid[0][3])
+			num = count_region(grid, i, j)
+			count = max(count, num)
+	return count
     
 
 
