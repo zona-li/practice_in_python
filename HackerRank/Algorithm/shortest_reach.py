@@ -1,3 +1,5 @@
+import queue
+
 '''
 n: number of nodes
 m: number of edges
@@ -13,12 +15,22 @@ class Graph(object):
 		for x in xrange(nodes_number):
 			nodes.append(Node(x))
 
+	def find_all_distances(self, start_node):
+		q = queue.Queue()
+		q.put(start_node)
+		while not q.empty():
+			node = queue.get()
+			for n in node.adjancent:
+				q.put(n)
+			if node.shortest_dist != -1:
+				node.shortest_dist = min(node.shortest_dist, node-1.shortest_dist+6)
+
 
 class Node(object):
 	"""docstring for Node"""
 	def __init__(self, id):
 		self.id = id
-		self.adjancent = {}
+		self.adjancent = []
 		self.shortest_dist = -1
 
 		

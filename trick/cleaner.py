@@ -1,3 +1,5 @@
+#############################              ASSERT              #############################
+
 def applyDiscount(product, discount):
 	amount = int(product['price'] - (1 - discount))
 	assert(0 < amount < product['price'], 'Price cannot be smaller than zero and larger than the original amount')
@@ -11,3 +13,10 @@ Example:
 assert(1 == 2, 'This should fail but will not')
 
 '''
+
+#############################           WITH STATEMENT         #############################
+
+with open(file.txt, 'x') as f:
+	f.write("hello wrold")
+
+
