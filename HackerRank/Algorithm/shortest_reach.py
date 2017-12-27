@@ -12,19 +12,36 @@ class Graph(object):
 	def __init__(self, nodes_number):
 		self.num_nodes = nodes_number
 		self.nodes = []
-		for x in xrange(nodes_number):
-			nodes.append(Node(x))
+		for x in range(nodes_number):
+			self.nodes.append(Node(x))
+
+	def get(self, index):
+		return self.nodes[index]
+
+	def connect(self, x, y):
+		self.nodes[x].adjancent.append(self.nodes[y])
+		self.nodes[y].adjancent.append(self.nodes[x])
 
 	def find_all_distances(self, start_node):
-		q = queue.Queue()
-		q.put(start_node)
-		while not q.empty():
-			node = queue.get()
-			for n in node.adjancent:
-				q.put(n)
-			if node.shortest_dist != -1:
-				node.shortest_dist = min(node.shortest_dist, node-1.shortest_dist+6)
+		self.nodes[start_node].shortest_dist = 0
+		print(self.nodes)
+		# q = queue.Queue()
+		# q.put(self.nodes[start_node])
+		# while not q.empty():
+		# 	node = q.get()
+		# 	for n in node.adjancent:
+		# 		if n.processed == False:
+		# 			q.put(n)
+				
+		# 	if node.shortest_dist == -1:
+		# 		previous_node_id = node.id - 1
+		# 		node.shortest_dist = self.nodes[previous_node_id].shortest_dist + 6
 
+		# for sequence_node in self.nodes:
+		# 	print(sequence_node.shortest_dist)
+
+	def __repr__(self):
+		return f"{self.value}"
 
 class Node(object):
 	"""docstring for Node"""
@@ -32,12 +49,14 @@ class Node(object):
 		self.id = id
 		self.adjancent = []
 		self.shortest_dist = -1
+		self.processed = False
+
+	def __repr__(self):
+		return f"{self.id + ': ' + self.adjancent}"
 
 		
 
 
-def find_all_distances(self):
-	pass
 
 t = int(input())
 for i in range(t):
