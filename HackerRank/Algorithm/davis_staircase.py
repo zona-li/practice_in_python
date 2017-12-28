@@ -17,13 +17,3 @@ for a0 in range(s):
 	result = count_possibilities(n, {})
 	print(result)
 
-# cases:
-# only 1, 2, or 3
-# 1&2		> 3
-# 1&3		> 4
-# 2&3		> 5
-# 1&2&3		> 6
-
-start with 1 + rest
-start with 2 + rest
-start with 3 + rest
