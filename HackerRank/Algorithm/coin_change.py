@@ -3,7 +3,10 @@
 import sys
 
 def make_change(coins, n):
-    
+    count = 0
+    for c in coins:
+    	count += make_change(coins, n-c)
+    return count
 
 n,m = input().strip().split(' ')
 n,m = [int(n),int(m)]
