@@ -4,24 +4,21 @@ Write a program that multiplies two nonnegative integers. The only operators you
 - the bitwise operators
 - equality checks and boolean combinations
 '''
-def add(x, y):
-    while (y != 0):
-        carry = x & y
-        x = x ^ y
-        y = carry << 1
-    return x
+
 
 def multiply(a, b):
-	isOdd = False
-	if b & 1 == 1:	# b is odd
-		isOdd = True
-	times = b >> 1
-	if isOdd:
-		num = a << times
-		num = add(num, a)
-	else:
-		num = a << times
-	return num
+    def add(x, y):
+        while (y != 0):
+            carry = x & y
+            x = x ^ y
+            y = carry << 1
+        return x
 
+    num = 0
+    while a:
+    	if a & 1:
+    		num = add(num, b)
+    	a, b = a >> 1, b << 1
+    return num
 
-print(multiply(4, 5))
+print(multiply(4, 17))
