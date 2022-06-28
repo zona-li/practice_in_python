@@ -1,14 +1,12 @@
 import collections
-from typing import List
 
 
 class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-      num_to_letters = collections.defaultdict(list)
-      for str in strs:
-        num_to_letters[tuple(sorted(str))].append(str)
-      return num_to_letters.values
-
-
-sol = Solution()
-sol.groupAnagrams([","])
+    def groupAnagrams(strs):
+        ans = collections.defaultdict(list)
+        for s in strs:
+            count = [0] * 26
+            for c in s:
+                count[ord(c) - ord('a')] += 1
+            ans[tuple(count)].append(s)
+        return ans.values()
