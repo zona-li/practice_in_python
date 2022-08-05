@@ -14,7 +14,7 @@ class Solution:
     for web in users.values():
       pattern.update(Counter(set(combinations(web, 3))))
 
-    return list(sorted(pattern.items(), key=lambda item: (-item[1], item[0]))[0][0])
+    return max(sorted(pattern), key=pattern.get)
 
 
 s = Solution()
