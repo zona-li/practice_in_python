@@ -1,0 +1,62 @@
+from collections import Counter
+import itertools
+
+# Time out
+class Solution:
+  def largestVariance(self, s: str) -> int:
+    result = 0
+    for a in 'abcdefghijklmnopqrstuvwxyz':
+      for b in 'abcdefghijklmnopqrstuvwxyz':
+        if a != b:
+          count = 0
+          substr_start_with_b = False
+          substr_has_b = False
+          for c in s:
+            if c == a:
+              count += 1
+            elif c == b:
+              substr_has_b = True
+              if substr_start_with_b:
+                if count >= 0:
+                  substr_start_with_b = False
+              else:
+                count -= 1
+                if count < 0:
+                  count = -1
+                  substr_start_with_b = True
+            result = max(result, count if substr_has_b else 0)
+    return result
+
+class Solution2:
+  def largestVariance(self, s: str) -> int:
+        counter = Counter(s)
+        res = 0
+        for a,b in itertools.permutations(counter,2):
+            max_subarray=0
+            has_a,has_b = False,False
+            remain_a,remain_b = counter[a],counter[b]
+            for ch in s:
+                if ch!=a and ch!=b:
+                    continue
+                if max_subarray<0 and remain_a!=0 and remain_b!=0:
+                    max_subarray=0
+                    has_a,has_b = False,False
+                if ch==a: 
+                    max_subarray+=1
+                    remain_a-=1
+                    has_a = True
+                elif ch==b: 
+                    max_subarray-=1
+                    remain_b-=1
+                    has_b = True
+                if has_a and has_b:
+                    res = max(res, max_subarray)
+        return res
+
+s = Solution()
+print(s.largestVariance("abbabaaba"))
+
+                  
+
+            
+
