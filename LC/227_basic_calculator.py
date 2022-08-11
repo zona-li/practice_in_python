@@ -1,56 +1,44 @@
-
-
 class Solution:
   def calculate(self, s: str) -> int:
-    priorityOps = ['*', '/']
-    ops = ['+', '-', '*', '/']
-    stack = []
-    num = ''
-    needEval = False
+    result, curr = 0, 0
+    num, op = '', ''
+    sign = 'pos'
     for c in s:
-      if c in ops:
-        stack.append(int(num))
+      if c in ['+', '-']:
+        if sign == 'neg':
+          result -= self.compute(curr, int(num), op)
+        else:
+          result += self.compute(curr, int(num), op)
+        curr = 0
+        sign = 'neg' if c == '-' else 'pos'
         num = ''
-        if needEval:
-          needEval = False
-          second = stack.pop()
-          operator = stack.pop()
-          value = self.evaluate(stack.pop(), operator, second)
-          stack.append(value)
-        stack.append(c)
-        if c in priorityOps:
-          needEval = True
-      elif c != ' ':
+        op = ''
+      elif c in ['*', '/']:
+        if not op:
+          curr = int(num)
+        else:
+          curr = self.compute(curr, int(num), op)
+        num = ''
+        op = c
+      elif c:
         num += c
-    if num:
-      stack.append(int(num))
-      if needEval:
-        second = stack.pop()
-        operator = stack.pop()
-        value = self.evaluate(stack.pop(), operator, second)
-        stack.append(value)
+    if sign == 'neg':
+      result -= self.compute(curr, int(num), op)
+    else:
+      result += self.compute(curr, int(num), op)
+    return result
 
-    prev = None
-    op = ''
-    for value in stack:
-      if value in ops:
-        op = value
-      elif prev == None:
-        prev = value
-      else:
-        prev = self.evaluate(prev, op, value)
-      
-    return prev
-
-  def evaluate(self, first: int, op: str, second: int) -> int:
+  def compute(self, a, b, op):
     if op == '+':
-      return first + second
+      return a + b
     elif op == '-':
-      return first - second
+      return a - b
     elif op == '*':
-      return first * second
+      return a * b
     elif op == '/':
-      return first // second
+      return a // b
+    else:
+      return a + b
 
 s = Solution()
 print(s.calculate("0-2147483647"))
