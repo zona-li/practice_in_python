@@ -5,6 +5,20 @@ class Node(object):
         self.left = left
         self.right = right
 
+
 class Solution:
+    def getNum(self, s: str):
+        if len(s) == 0:
+            return (None, '')
+        i = 0
+        while s[i].isnumeric():
+            i += 1
+        return (int(s[0:i]), s[i:])
+
     def expTree(self, s: str) -> 'Node':
-        pass
+        nextNum, restStr = self.getNum(s)
+        print(nextNum, restStr)
+
+
+s = Solution()
+s.expTree("3*4-2*5")
