@@ -1,4 +1,7 @@
 # Definition for a binary tree node.
+from collections import deque
+
+
 class Node(object):
     def __init__(self, val=" ", left=None, right=None):
         self.val = val
@@ -7,18 +10,36 @@ class Node(object):
 
 
 class Solution:
-    def getNum(self, s: str):
-        if len(s) == 0:
-            return (None, '')
-        i = 0
-        while s[i].isnumeric():
-            i += 1
-        return (int(s[0:i]), s[i:])
-
     def expTree(self, s: str) -> 'Node':
-        nextNum, restStr = self.getNum(s)
-        print(nextNum, restStr)
+        stack = deque(list(s))
+        return self.parseExpression(stack)
+
+    def parseExpression(self, stack: deque):
+        lhs = self.parseTerm(stack)
+        while stack and stack[0] in ['+', '-']:
+            op = stack.popleft()
+            rhs = self.parseTerm(stack)
+            lhs = Node(op, lhs, rhs)
+        return lhs
+
+    def parseTerm(self, stack: deque):
+        lhs = self.parsePhrase(stack)
+        while stack and stack[0] in ['*', '/']:
+            op = stack.popleft()
+            rhs = self.parsePhrase(stack)
+            lhs = Node(op, lhs, rhs)
+        return lhs
+
+    def parsePhrase(self, stack: deque):
+        if stack[0] == '(':
+            stack.popleft()
+            node = self.parseExpression(stack)
+            stack.popleft()
+            return node
+        else:
+            val = stack.popleft()
+            return Node(val)
 
 
 s = Solution()
-s.expTree("3*4-2*5")
+print(s.expTree("5*2-3+9/(5-2)+1"))
